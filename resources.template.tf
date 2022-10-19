@@ -1,7 +1,7 @@
 {% for resource in environment_config.resources %}
     {% if (resource.resource_type | lower) == "database" %}
         module "app_rds_{{aws_app_identifier}}" {
-          source = "../rds"
+          source = "./rds"
           {%- if resource.rds_instance_class is defined %}
           instance_class = "{{resource.rds_instance_class}}"
           {% endif %}
@@ -82,7 +82,7 @@
 
     {% elif (resource.resource_type | lower) == "redis" %}
         module "app_redis_{{aws_app_identifier}}" {
-          source = "../redis"
+          source = "./redis"
           cluster_id = "${var.aws_app_identifier}"
           cluster_description = "${var.aws_app_identifier}"
 
@@ -111,7 +111,7 @@
 
     {% elif (resource.resource_type | lower) == "docdb" %}
         module "app_docdb_{{aws_app_identifier}}" {
-          source = "../docdb"
+          source = "./docdb"
           cluster_identifier = "${var.aws_app_identifier}"
           vpc_id = var.vpc_id
           private_subnets = var.private_subnets
