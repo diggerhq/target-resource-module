@@ -1,0 +1,1 @@
+contains terraform for resources attached to environments
