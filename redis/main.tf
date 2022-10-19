@@ -1,7 +1,7 @@
 
 resource "aws_elasticache_subnet_group" "redis_private_subnet_group" {
   name       = "${var.aws_app_identifier}-redis-subnet-group"
-  subnet_ids = var.subnet_ids
+  subnet_ids = var.private_subnets
   tags       = var.tags
 }
 
@@ -15,7 +15,7 @@ resource "aws_security_group" "redis_sg" {
     from_port       = var.redis_port
     to_port         = var.redis_port
     protocol        = "tcp"
-    security_groups = var.security_group_ids
+    security_groups = var.security_groups
   }
 
   # Allow all outbound traffic.
@@ -42,17 +42,17 @@ resource "aws_elasticache_cluster" "dg_redis" {
 }
 
 resource "aws_elasticache_replication_group" "dg_redis" {
-  count                       = var.redis_number_nodes > 1 ? 1 : 0
-  automatic_failover_enabled  = true
-  replication_group_id        = var.cluster_id
-  description                 = var.cluster_id
-  node_type                   = var.redis_node_type
-  num_cache_clusters          = var.redis_number_nodes
-  parameter_group_name        = "default.redis6.x"
-  security_group_ids          = [aws_security_group.redis_sg.id]
-  subnet_group_name           = aws_elasticache_subnet_group.redis_private_subnet_group.name
-  tags                        = var.tags
-  port                        = 6379
+  count                      = var.redis_number_nodes > 1 ? 1 : 0
+  automatic_failover_enabled = true
+  replication_group_id       = var.cluster_id
+  description                = var.cluster_id
+  node_type                  = var.redis_node_type
+  num_cache_clusters         = var.redis_number_nodes
+  parameter_group_name       = "default.redis6.x"
+  security_group_ids         = [aws_security_group.redis_sg.id]
+  subnet_group_name          = aws_elasticache_subnet_group.redis_private_subnet_group.name
+  tags                       = var.tags
+  port                       = 6379
 }
 
 output "redis_url" {

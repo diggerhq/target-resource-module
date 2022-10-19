@@ -57,7 +57,7 @@ variable "snapshot_identifier" {
 
 variable "vpc_id" {}
 
-variable "subnet_ids" {}
+variable "private_subnets" {}
 
-variable "security_group_ids" {}
+variable "security_groups" {}
 

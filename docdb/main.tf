@@ -1,7 +1,7 @@
 resource "aws_docdb_subnet_group" "docdb_subnet_group" {
   name        = "${var.aws_app_identifier}_docdb_subnet"
   description = "Allowed subnets for DB cluster instances"
-  subnet_ids  = var.subnet_ids
+  subnet_ids  = var.private_subnets
 }
 
 resource "random_password" "docdb_password" {
@@ -19,7 +19,7 @@ resource "aws_security_group" "docdb_sg" {
     from_port       = var.docdb_port
     to_port         = var.docdb_port
     protocol        = "tcp"
-    security_groups = var.security_group_ids
+    security_groups = var.security_groups
   }
 
   # Allow all outbound traffic.

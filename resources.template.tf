@@ -51,8 +51,8 @@
           publicly_accessible = false
 
           vpc_id = var.vpc_id
-          subnet_ids = var.private_subnet_ids
-          security_group_ids = var.security_group_ids
+          private_subnets = var.private_subnets
+          security_groups = var.security_groups
           aws_app_identifier = var.aws_app_identifier
         }
 
@@ -100,8 +100,8 @@
 
           aws_app_identifier = var.aws_app_identifier
           vpc_id = var.vpc_id
-          subnet_ids = var.private_subnet_ids
-          security_group_ids = var.security_group_ids
+          private_subnets = var.private_subnets
+          security_groups = var.security_groups
           tags = var.tags
         }
 
@@ -114,8 +114,8 @@
           source = "../docdb"
           cluster_identifier = "${var.aws_app_identifier}"
           vpc_id = var.vpc_id
-          subnet_ids = var.private_subnet_ids
-          security_group_ids = var.security_group_ids
+          private_subnets = var.private_subnets
+          security_groups = var.security_groups
           instance_class = "{{ resource.docdb_instance_class }}"
           aws_app_identifier = var.aws_app_identifier
         }

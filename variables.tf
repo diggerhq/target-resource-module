@@ -15,11 +15,11 @@ variable "vpc_id" {}
 
 variable "aws_app_identifier" {}
 
-variable "public_subnet_ids" {}
+variable "public_subnets" {}
 
-variable "private_subnet_ids" {}
+variable "private_subnets" {}
 
-variable "security_group_ids" {}
+variable "security_groups" {}
 
 variable "tags" {
   default = {created_by: "digger"}

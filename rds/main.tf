@@ -1,7 +1,7 @@
 
 resource "aws_db_subnet_group" "rds_private_subnet_group" {
   name_prefix = "rds_private_subnet_group"
-  subnet_ids  = var.subnet_ids
+  subnet_ids  = var.private_subnets
 
   tags = {
     Name = "${var.aws_app_identifier}-rds-subnet-group"
@@ -18,7 +18,7 @@ resource "aws_security_group" "rds" {
     from_port       = var.ingress_port
     to_port         = var.ingress_port
     protocol        = "tcp"
-    security_groups = var.security_group_ids
+    security_groups = var.security_groups
   }
 
   # Allow all outbound traffic.

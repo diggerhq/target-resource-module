@@ -14,12 +14,11 @@ variable "docdb_port" {
 variable "instances_number" {
   default = 1
 }
-
-variable "subnet_ids" {}
-
 variable "vpc_id" {}
 
-variable "security_group_ids" {}
+variable "private_subnets" {}
+
+variable "security_groups" {}
 
 variable "instance_class" {
   default = "db.t3.medium"
