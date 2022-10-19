@@ -1,9 +1,10 @@
-{% if (resource_type | lower) == "database" %}
-    module "app_rds_{{aws_app_identifier}}" {
-      source = "../rds"
-      {%- if rds_instance_class is defined %}
-      instance_class = "{{rds_instance_class}}"
-      {% endif %}
+{% for resource in environment_config.resources %}
+    {% if (resource.resource_type | lower) == "database" %}
+        module "app_rds_{{aws_app_identifier}}" {
+          source = "./rds"
+          {%- if resource.rds_instance_class is defined %}
+          instance_class = "{{resource.rds_instance_class}}"
+          {% endif %}
 
       {%- if rds_engine is defined %}
       engine = "{{rds_engine}}"
@@ -79,11 +80,11 @@
       value = module.app_rds_{{aws_app_identifier}}.database_port
     }
 
-{% elif (resource_type | lower) == "redis" %}
-    module "app_redis_{{aws_app_identifier}}" {
-      source = "../redis"
-      cluster_id = "${var.aws_app_identifier}"
-      cluster_description = "${var.aws_app_identifier}"
+    {% elif (resource.resource_type | lower) == "redis" %}
+        module "app_redis_{{aws_app_identifier}}" {
+          source = "./redis"
+          cluster_id = "${var.aws_app_identifier}"
+          cluster_description = "${var.aws_app_identifier}"
 
       {%- if redis_engine_version is defined %}
       engine_version = "{{redis_engine_version}}"
@@ -108,16 +109,16 @@
       value = module.app_redis_{{aws_app_identifier}}.redis_url
     }
 
-{% elif (resource_type | lower) == "docdb" %}
-    module "app_docdb_{{aws_app_identifier}}" {
-      source = "../docdb"
-      cluster_identifier = "${var.aws_app_identifier}"
-      vpc_id = var.vpc_id
-      private_subnets = var.private_subnets
-      security_groups = var.security_groups
-      instance_class = "{{ docdb_instance_class }}"
-      aws_app_identifier = var.aws_app_identifier
-    }
+    {% elif (resource.resource_type | lower) == "docdb" %}
+        module "app_docdb_{{aws_app_identifier}}" {
+          source = "./docdb"
+          cluster_identifier = "${var.aws_app_identifier}"
+          vpc_id = var.vpc_id
+          private_subnets = var.private_subnets
+          security_groups = var.security_groups
+          instance_class = "{{ resource.docdb_instance_class }}"
+          aws_app_identifier = var.aws_app_identifier
+        }
 
     output "DGVAR_DOCDB_{{ aws_app_identifier }}_URL" {
       value = module.app_docdb_{{aws_app_identifier}}.endpoint
