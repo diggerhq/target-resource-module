@@ -7,10 +7,6 @@ variable "region" {
   default = "us-east-1"
 }
 
-variable "aws_key" {}
-
-variable "aws_secret" {}
-
 variable "vpc_id" {}
 
 variable "aws_app_identifier" {}
