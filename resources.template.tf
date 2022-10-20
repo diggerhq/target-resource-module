@@ -1,5 +1,5 @@
 {% if (resource_type | lower) == "database" %}
-module "app_rds_{{aws_app_identifier}}" {
+module "app_rds" {
   source = "./rds"
   {%- if rds_instance_class is defined %}
   instance_class = "{{rds_instance_class}}"
@@ -55,35 +55,39 @@ module "app_rds_{{aws_app_identifier}}" {
   aws_app_identifier = var.aws_app_identifier
 }
 
-output "DGVAR_DATABASE_{{ aws_app_identifier }}_URL" {
-  value = module.app_rds_{{aws_app_identifier}}.database_url
+output "database_url_ssm_arn" {
+  value = module.app_rds.database_url_ssm_arn
 }
 
-output "DGVAR_DATABASE_{{ aws_app_identifier }}_ADDRESS" {
-  value = module.app_rds_{{aws_app_identifier}}.database_address
+output "database_address" {
+  value = module.app_rds.database_address
 }
 
-output "DGVAR_DATABASE_{{ aws_app_identifier }}_NAME" {
-  value = module.app_rds_{{aws_app_identifier}}.database_name
+output "database_endpoint" {
+  value = module.app_rds.database_endpoint
 }
 
-output "DGVAR_DATABASE_{{ aws_app_identifier }}_USERNAME" {
-  value = module.app_rds_{{aws_app_identifier}}.database_username
+output "database_name" {
+  value = module.app_rds.database_name
 }
 
-output "DGVAR_DATABASE_{{ aws_app_identifier }}_PASSWORD" {
-  value = module.app_rds_{{aws_app_identifier}}.database_password
+output "database_username" {
+  value = module.app_rds.database_username
 }
 
-output "DGVAR_DATABASE_{{ aws_app_identifier }}_PORT" {
-  value = module.app_rds_{{aws_app_identifier}}.database_port
+output "database_password_ssm_arn" {
+  value = module.app_rds.database_password_ssm_arn
+}
+
+output "database_port" {
+  value = module.app_rds.database_port
 }
 
 {% elif (resource_type | lower) == "redis" %}
-module "app_redis_{{aws_app_identifier}}" {
+module "app_redis" {
   source = "./redis"
-  cluster_id = "${var.aws_app_identifier}"
-  cluster_description = "${var.aws_app_identifier}"
+  cluster_id = "{{ aws_app_identifier }}"
+  cluster_description = "{{ aws_app_identifier }}"
 
   {%- if redis_engine_version is defined %}
   engine_version = "{{redis_engine_version}}"
@@ -104,14 +108,14 @@ module "app_redis_{{aws_app_identifier}}" {
   tags = var.tags
 }
 
-output "DGVAR_REDIS_{{ aws_app_identifier }}_URL" {
-  value = module.app_redis_{{aws_app_identifier}}.redis_url
+output "redis_url" {
+  value = module.app_redis.redis_url
 }
 
 {% elif (resource_type | lower) == "docdb" %}
-module "app_docdb_{{aws_app_identifier}}" {
+module "app_docdb" {
   source = "./docdb"
-  cluster_identifier = "${var.aws_app_identifier}"
+  cluster_identifier = "{{ aws_app_identifier }}"
   vpc_id = var.vpc_id
   private_subnets = var.private_subnets
   security_groups = var.security_groups
@@ -119,8 +123,8 @@ module "app_docdb_{{aws_app_identifier}}" {
   aws_app_identifier = var.aws_app_identifier
 }
 
-output "DGVAR_DOCDB_{{ aws_app_identifier }}_URL" {
-  value = module.app_docdb_{{aws_app_identifier}}.endpoint
+output "docdb_endpoint" {
+  value = module.app_docdb.endpoint
 }
 {% endif %}
 
