@@ -50,6 +50,7 @@ resource "aws_docdb_cluster_instance" "default" {
   apply_immediately          = true
   instance_class             = var.instance_class
   engine                     = var.engine
+  engine_version             = var.engine_version
   auto_minor_version_upgrade = true
 }
 
