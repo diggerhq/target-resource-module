@@ -63,3 +63,7 @@ resource "aws_ssm_parameter" "docdb_password" {
 output "endpoint" {
   value = aws_docdb_cluster.docdb.endpoint
 }
+
+output "password_ssm_arn" {
+  value = aws_ssm_parameter.docdb_password.arn
+}

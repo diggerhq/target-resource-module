@@ -126,5 +126,9 @@ module "app_docdb" {
 output "docdb_endpoint" {
   value = module.app_docdb.endpoint
 }
+
+output "docdb_password_ssm_arn" {
+  value = module.app_docdb.password_ssm_arn
+}
 {% endif %}
 
