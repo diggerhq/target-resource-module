@@ -52,7 +52,7 @@ resource "aws_elasticache_replication_group" "dg_redis" {
   security_group_ids         = [aws_security_group.redis_sg.id]
   subnet_group_name          = aws_elasticache_subnet_group.redis_private_subnet_group.name
   tags                       = var.tags
-  port                       = 6379
+  port                       = var.redis_port
 }
 
 output "redis_url" {
