@@ -27,3 +27,7 @@ variable "instance_class" {
 variable "engine" {
   default = "docdb"
 }
+
+variable "engine_version" {
+
+}

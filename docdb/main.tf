@@ -50,6 +50,7 @@ resource "aws_docdb_cluster_instance" "default" {
   apply_immediately          = true
   instance_class             = var.instance_class
   engine                     = var.engine
+  engine_version             = var.engine_version
   auto_minor_version_upgrade = true
 }
 
@@ -61,4 +62,8 @@ resource "aws_ssm_parameter" "docdb_password" {
 
 output "endpoint" {
   value = aws_docdb_cluster.docdb.endpoint
+}
+
+output "password_ssm_arn" {
+  value = aws_ssm_parameter.docdb_password.arn
 }
