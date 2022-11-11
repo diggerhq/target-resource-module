@@ -55,27 +55,27 @@ module "app_rds_{{aws_app_identifier}}" {
   aws_app_identifier = var.aws_app_identifier
 }
 
-output "DGVAR_DATABASE_{{ aws_app_identifier }}_URL" {
+output "{{ aws_app_identifier }}_URL" {
   value = module.app_rds_{{aws_app_identifier}}.database_url
 }
 
-output "DGVAR_DATABASE_{{ aws_app_identifier }}_ADDRESS" {
+output "{{ aws_app_identifier }}_ADDRESS" {
   value = module.app_rds_{{aws_app_identifier}}.database_address
 }
 
-output "DGVAR_DATABASE_{{ aws_app_identifier }}_NAME" {
+output "{{ aws_app_identifier }}_NAME" {
   value = module.app_rds_{{aws_app_identifier}}.database_name
 }
 
-output "DGVAR_DATABASE_{{ aws_app_identifier }}_USERNAME" {
+output "{{ aws_app_identifier }}_USERNAME" {
   value = module.app_rds_{{aws_app_identifier}}.database_username
 }
 
-output "DGVAR_DATABASE_{{ aws_app_identifier }}_PASSWORD" {
+output "{{ aws_app_identifier }}_PASSWORD" {
   value = module.app_rds_{{aws_app_identifier}}.database_password
 }
 
-output "DGVAR_DATABASE_{{ aws_app_identifier }}_PORT" {
+output "{{ aws_app_identifier }}_PORT" {
   value = module.app_rds_{{aws_app_identifier}}.database_port
 }
 
@@ -104,7 +104,7 @@ module "app_redis_{{aws_app_identifier}}" {
   tags = var.tags
 }
 
-output "DGVAR_REDIS_{{ aws_app_identifier }}_URL" {
+output "{{ aws_app_identifier }}_URL" {
   value = module.app_redis_{{aws_app_identifier}}.redis_url
 }
 
@@ -119,7 +119,7 @@ module "app_docdb_{{aws_app_identifier}}" {
   aws_app_identifier = var.aws_app_identifier
 }
 
-output "DGVAR_DOCDB_{{ aws_app_identifier }}_URL" {
+output "{{ aws_app_identifier }}_URL" {
   value = module.app_docdb_{{aws_app_identifier}}.endpoint
 }
 {% endif %}
