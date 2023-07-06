@@ -1,12 +1,5 @@
 variable "aws_app_identifier" {}
 
-variable "allocated_storage" {
-  type        = number
-  default     = 100
-  description = "The default storage for the RDS instance"
-} 
-
-
 variable "cluster_id" {
 }
 
