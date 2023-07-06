@@ -24,7 +24,7 @@ variable "redis_port" {
 }
 
 variable "redis_number_nodes" {
-  default = 2
+  default = 1
 }
 
 variable "vpc_id" {}
